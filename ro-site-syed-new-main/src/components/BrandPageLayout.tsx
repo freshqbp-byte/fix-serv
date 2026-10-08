@@ -386,7 +386,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         </div>
       )}
 
-      {/* HERO SECTION - ✅ fetchPriority HIGH for LCP */}
+      {/* HERO SECTION */}
       <section className="relative w-full min-h-[380px] sm:min-h-[420px] max-h-none sm:max-h-[560px] lg:max-h-[620px] flex items-start sm:items-center overflow-hidden border-b border-slate-200/80 bg-white">
         {heroImageToDisplay && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -472,7 +472,8 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           </div>
         </div>
       </section>
-            {/* BOOKING FORM */}
+
+      {/* BOOKING FORM */}
       <section className="bg-slate-50 py-4 sm:py-10 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-2xl overflow-hidden border border-blue-900/50 bg-[#0c3975]">
@@ -545,8 +546,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           </div>
         </div>
       </section>
-
-      {/* STATS SECTION */}
+            {/* STATS SECTION */}
       <section className="py-10 sm:py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Our {brand.name} Water Purifier Service in Bangalore</h2>

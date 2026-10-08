@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import './globals.css';
 import { CallWidgetsWrapper } from '@/src/components/CallWidgetsWrapper';
 import { BUSINESS_DETAILS } from '@/src/data/content';
@@ -49,39 +48,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://formsubmit.co" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
 
-        {/* ✅ DNS prefetch (halka) — fonts aur cloudinary ke liye */}
+        {/* ✅ DNS prefetch (halka) */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
-        {/* ✅ GA4 - Load after user interaction (fast page load) */}
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-18344051619', {
-              'send_page_view': false
-            });
-            
-            var gaLoaded = false;
-            function loadGA() {
-              if (gaLoaded) return;
-              gaLoaded = true;
-              var script = document.createElement('script');
-              script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18344051619';
-              script.async = true;
-              document.head.appendChild(script);
-              gtag('event', 'page_view');
-            }
-            
-            ['scroll', 'click', 'touchstart', 'keydown'].forEach(function(e) {
-              window.addEventListener(e, loadGA, { once: true, passive: true });
-            });
-            setTimeout(loadGA, 3000);
-          `}
-        </Script>
         <main className="flex-1">{children}</main>
         <CallWidgetsWrapper />
       </body>

@@ -55,7 +55,7 @@ const nextConfig = {
   // ✅ Source maps off
   productionBrowserSourceMaps: false,
 
-  // ✅ Legacy JS disable (24 KiB savings) + CSS optimize
+  // ✅ Legacy JS disable + CSS optimize
   experimental: {
     legacyBrowsers: false,
     browsersListForSwc: true,
