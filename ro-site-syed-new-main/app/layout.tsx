@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.roservicecentre24x7.in'),
+  metadataBase: new URL('https://www.roservicesupport.co.in'),
   title: {
     default: `${BUSINESS_DETAILS.name} | Doorstep RO Water Purifier Repair & Service Bangalore`,
     template: `%s | ${BUSINESS_DETAILS.name}`,
@@ -44,21 +44,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* ✅ Cloudinary preconnect */}
+        {/* ✅ Sirf 3 preconnect (important origins) */}
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-
-        {/* ✅ FormSubmit preconnect */}
         <link rel="preconnect" href="https://formsubmit.co" />
-        <link rel="dns-prefetch" href="https://formsubmit.co" />
-
-        {/* ✅ Google Tag Manager preconnect */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
-        {/* ✅ Google Fonts preconnect */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* ✅ DNS prefetch (halka) — fonts aur cloudinary ke liye */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
         {/* ✅ GA4 - Load after user interaction (fast page load) */}

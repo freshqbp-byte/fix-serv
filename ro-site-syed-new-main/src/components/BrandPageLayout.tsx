@@ -169,16 +169,6 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
   );
   const bottomBannerToDisplay = optimizeCloudinary(bottomBannerRaw, { width: 1200 });
 
-  const partsBannerRaw = brand.partsBannerImage || (
-    brand.id === 'ro-service-24x7' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789744713/file_00000000be388230a7ea3fe9b5fef059_oqqijq.png'
-      : brand.id === 'aquaguard' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742669/file_00000000dca481f594fbe17b45c4fbf9_o20n4v.png'
-      : brand.id === 'pureit' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742669/file_000000006a7881f89f7423968dbdf36e_nnkyny.png'
-      : brand.id === 'ao-smith' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742670/file_0000000009ec81fdad912727b6638014_jadzuy.png'
-      : brand.id === 'livpure' ? 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789742670/file_00000000980c8230b73a31ab0aba807a_jujtjk.png'
-      : 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789672646/file_0000000075fc8208a4db72abe1abf045_bakaut.png'
-  );
-  const partsBannerToDisplay = optimizeCloudinary(partsBannerRaw, { width: 1200 });
-
   const toggleFaq = (index: number) => setOpenFaqs((prev) => ({ ...prev, [index]: !prev[index] }));
   const toggleBlog = () => {
     setShowBlog(true);
@@ -196,7 +186,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
+      await fetch(`https://formsubmit.co/ajax/${formEmail}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -212,12 +202,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           _captcha: 'false',
         }),
       });
-
-      if (response.ok || response.status === 200) {
-        setFormSubmitted(true);
-      } else {
-        setFormSubmitted(true);
-      }
+      setFormSubmitted(true);
     } catch (err) {
       console.warn('FormSubmit lead sending note:', err);
       setFormSubmitted(true);
@@ -401,7 +386,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         </div>
       )}
 
-      {/* HERO SECTION - ✅ unoptimized for FAST first load */}
+      {/* HERO SECTION - ✅ fetchPriority HIGH for LCP */}
       <section className="relative w-full min-h-[380px] sm:min-h-[420px] max-h-none sm:max-h-[560px] lg:max-h-[620px] flex items-start sm:items-center overflow-hidden border-b border-slate-200/80 bg-white">
         {heroImageToDisplay && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -410,8 +395,10 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
               alt={`${brand.name} RO Service Bangalore`}
               fill
               priority
+              fetchPriority="high"
               unoptimized
               sizes="100vw"
+              decoding="async"
               className="object-cover object-[center_top]"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/85 sm:bg-gradient-to-r sm:from-white/75 sm:via-white/40 sm:to-transparent" />
@@ -485,8 +472,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           </div>
         </div>
       </section>
-
-      {/* BOOKING FORM - ✅ unoptimized bg */}
+            {/* BOOKING FORM */}
       <section className="bg-slate-50 py-4 sm:py-10 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-2xl overflow-hidden border border-blue-900/50 bg-[#0c3975]">
@@ -560,7 +546,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         </div>
       </section>
 
-      {/* STATS SECTION - ✅ repair image unoptimized */}
+      {/* STATS SECTION */}
       <section className="py-10 sm:py-16 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-8">Our {brand.name} Water Purifier Service in Bangalore</h2>
@@ -636,7 +622,8 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           </div>
         </div>
       </section>
-            {/* TEXT INFO */}
+
+      {/* TEXT INFO */}
       <section className="py-10 sm:py-16 bg-white border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-4">How Often Should You Service Your {brand.name} Purifier?</h2>
@@ -746,7 +733,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         </div>
       </section>
 
-      {/* BOTTOM BANNER - ✅ unoptimized */}
+      {/* BOTTOM BANNER */}
       <section className="w-full bg-white border-b border-slate-200">
         <Image
           src={bottomBannerToDisplay}
