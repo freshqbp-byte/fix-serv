@@ -1,11 +1,4 @@
-'use client';
-
-import dynamic from 'next/dynamic';
-
-const CallWidgets = dynamic(
-  () => import('./CallWidgets').then((m) => m.CallWidgets),
-  { ssr: false }
-);
+import { CallWidgets } from './CallWidgets';
 
 export function CallWidgetsWrapper() {
   return <CallWidgets />;

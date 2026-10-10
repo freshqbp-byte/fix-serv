@@ -1,8 +1,8 @@
-'use client';
+
 
 import React from 'react';
 import { Check, Phone, ShieldCheck, Tag, ArrowRight, HelpCircle } from 'lucide-react';
-import { BUSINESS_DETAILS } from '@/src/data/content';
+import { BUSINESS_DETAILS } from '@/data/content';
 
 interface PricingPlan {
   title: string;
@@ -177,3 +177,4 @@ export const PricingTransparency: React.FC<PricingTransparencyProps> = ({
     </section>
   );
 };
+

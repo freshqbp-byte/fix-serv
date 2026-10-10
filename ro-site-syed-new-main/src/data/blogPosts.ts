@@ -558,3 +558,4 @@ export function getBrandBlogImage(
 
   return fallbackImage || 'https://res.cloudinary.com/dieq3fjuv/image/upload/v1789669453/IMG-20260917-WA0016_y94ufa.jpg';
 }
+

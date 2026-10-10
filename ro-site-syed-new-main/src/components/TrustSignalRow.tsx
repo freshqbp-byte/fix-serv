@@ -60,3 +60,4 @@ export const TrustSignalRow: React.FC = () => {
     </div>
   );
 };
+

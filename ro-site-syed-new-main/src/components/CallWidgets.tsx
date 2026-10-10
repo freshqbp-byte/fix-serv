@@ -1,11 +1,8 @@
-'use client';
-
 import React from 'react';
-import { usePathname } from 'next/navigation';
 import { Phone } from 'lucide-react';
-import { BUSINESS_DETAILS } from '@/src/data/content';
-import { PageRoute } from '@/src/types';
-import { getBrandTheme } from '@/src/utils/brandTheme';
+import { BUSINESS_DETAILS } from '@/data/content';
+import type { PageRoute } from '@/types';
+import { getBrandTheme } from '@/utils/brandTheme';
 
 interface CallWidgetsProps {
   currentRoute?: PageRoute;
@@ -18,7 +15,8 @@ export const CallWidgets: React.FC<CallWidgetsProps> = ({
   lastBrandRoute,
   customPhone,
 }) => {
-  const pathname = usePathname() || '/';
+  // Astro mein usePathname nahi hota — window.location se lo
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
   const currentRoute = propCurrentRoute || (pathname as PageRoute);
   const phone = customPhone || BUSINESS_DETAILS.phone;
   const telLink = `tel:${phone}`;

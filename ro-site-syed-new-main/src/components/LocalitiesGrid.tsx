@@ -61,3 +61,4 @@ export const LocalitiesGrid: React.FC = () => {
     </section>
   );
 };
+

@@ -1,8 +1,8 @@
-'use client';
+
 
 import React from 'react';
 import { Check, X, ShieldAlert, Zap, Phone, Award, Clock } from 'lucide-react';
-import { BUSINESS_DETAILS } from '@/src/data/content';
+import { BUSINESS_DETAILS } from '@/data/content';
 
 interface ComparisonRow {
   metric: string;
@@ -145,3 +145,4 @@ export const BrandComparison: React.FC<BrandComparisonProps> = ({
     </section>
   );
 };
+

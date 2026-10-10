@@ -1,9 +1,5 @@
-'use client';
-
 import React, { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import dynamic from 'next/dynamic';
+
 import {
   Phone,
   MapPin,
@@ -26,28 +22,13 @@ import {
   IndianRupee,
   Settings,
   HelpCircle,
-  Facebook,
-  Instagram,
-  Youtube,
-  Linkedin,
   Lock,
   Loader2,
 } from 'lucide-react';
-import { BrandInfo } from '@/src/types';
-import { BUSINESS_DETAILS } from '@/src/data/content';
-import { optimizeCloudinary } from '@/src/utils/imageOptimizer';
-
-const HomeBlogSection = dynamic(
-  () => import('./HomeBlogSection').then((m) => m.HomeBlogSection),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="py-16 text-center">
-        <Loader2 className="w-8 h-8 text-blue-500 animate-spin mx-auto" />
-      </div>
-    ),
-  }
-);
+import type { BrandInfo } from '@/types';
+import { BUSINESS_DETAILS } from '@/data/content';
+import { optimizeCloudinary } from '@/utils/imageOptimizer';
+import { HomeBlogSection } from './HomeBlogSection';
 
 interface BrandPageLayoutProps {
   brand: BrandInfo;
@@ -317,15 +298,14 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-20">
             <div className="flex items-center gap-2 sm:gap-4">
-              <Link href="/" className="flex items-center gap-2 sm:gap-3 group select-none">
+              <a href="/" className="flex items-center gap-2 sm:gap-3 group select-none">
                 <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-xs shrink-0 group-hover:scale-[1.03] transition-transform">
-                  <Image
+                  <img
                     src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg", { width: 100 })}
                     alt="Roservice Support Online 24x7"
                     width={44}
                     height={44}
-                    priority
-                    unoptimized
+                    loading="eager"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -338,7 +318,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                     </span>
                   </div>
                 </div>
-              </Link>
+              </a>
             </div>
 
             <div className="flex items-center gap-2.5 sm:gap-5 text-slate-800">
@@ -368,7 +348,7 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
             <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-full transition-colors" aria-label="Close menu"><X className="w-6 h-6" /></button>
           </div>
           <nav className="flex flex-col space-y-4 text-xl font-extrabold text-slate-800">
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 text-slate-900">Home</Link>
+            <a href="/" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100 text-slate-900">Home</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100">Services</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100">AMC Plans</a>
             <a href="#parts" onClick={() => setMobileMenuOpen(false)} className="py-2 border-b border-slate-100">Filters &amp; Parts</a>
@@ -390,16 +370,13 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       <section className="relative w-full min-h-[380px] sm:min-h-[420px] max-h-none sm:max-h-[560px] lg:max-h-[620px] flex items-start sm:items-center overflow-hidden border-b border-slate-200/80 bg-white">
         {heroImageToDisplay && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <Image
+            <img
               src={heroImageToDisplay}
               alt={`${brand.name} RO Service Bangalore`}
-              fill
-              priority
+              loading="eager"
               fetchPriority="high"
-              unoptimized
-              sizes="100vw"
               decoding="async"
-              className="object-cover object-[center_top]"
+              className="absolute inset-0 w-full h-full object-cover object-[center_top]"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/85 sm:bg-gradient-to-r sm:from-white/75 sm:via-white/40 sm:to-transparent" />
           </div>
@@ -477,14 +454,11 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
       <section className="bg-slate-50 py-4 sm:py-10 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={bookingFormRef} id="booking-section" className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 text-white relative shadow-2xl overflow-hidden border border-blue-900/50 bg-[#0c3975]">
-            <Image
+            <img
               src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789668617/file_00000000aa70820b93ba0ee61bc6377c_prruge.png", { width: 900 })}
               alt="Booking Background"
-              fill
-              priority
-              unoptimized
-              sizes="(max-width: 768px) 100vw, 1200px"
-              className="object-cover object-center sm:object-[center_right]"
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover object-center sm:object-[center_right]"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0c2b5e]/95 via-[#0c2b5e]/80 to-[#0c2b5e]/60 sm:from-[#0c2b5e]/80 sm:via-[#0c2b5e]/30 sm:to-transparent pointer-events-none" />
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
@@ -571,14 +545,12 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
           </p>
 
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-md border border-slate-100 mb-6">
-            <Image
+            <img
               src={repairImage}
               alt={`${brand.name} Technician`}
               width={800}
               height={450}
               loading="lazy"
-              unoptimized
-              sizes="(max-width: 768px) 100vw, 800px"
               className="w-full h-auto object-cover"
             />
           </div>
@@ -735,14 +707,12 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
 
       {/* BOTTOM BANNER */}
       <section className="w-full bg-white border-b border-slate-200">
-        <Image
+        <img
           src={bottomBannerToDisplay}
           alt={`${brand.name} Banner`}
           width={1200}
           height={360}
           loading="lazy"
-          unoptimized
-          sizes="100vw"
           className="w-full h-auto object-cover block"
         />
       </section>
@@ -752,16 +722,15 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-start mb-10">
             <div className="col-span-2 sm:col-span-1 flex flex-col items-start gap-2">
-              <Link href="/" className="flex flex-col group select-none">
+              <a href="/" className="flex flex-col group select-none">
                 <div className="flex items-center gap-2 mb-1.5">
                   <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-xs shrink-0">
-                    <Image
+                    <img
                       src={optimizeCloudinary("https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg", { width: 90 })}
                       alt="Roservice Support Online 24x7"
                       width={36}
                       height={36}
                       loading="lazy"
-                      unoptimized
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -769,45 +738,53 @@ export function BrandPageLayout({ brand }: BrandPageLayoutProps) {
                 </div>
                 <span className="font-extrabold text-base text-[#002b66] tracking-tight leading-tight group-hover:text-[#0052a3] transition-colors">Roservice Support</span>
                 <span className="text-xs font-black tracking-wide text-[#0070e0] mt-0.5 uppercase">Online 24x7</span>
-              </Link>
+              </a>
               <p className="text-[11px] text-slate-500 mt-1 leading-relaxed max-w-[170px]">Certified doorstep water purifier repair &amp; maintenance service.</p>
             </div>
             <div className="space-y-3">
               <h3 className="font-bold text-slate-900 text-sm tracking-tight">Quick Links</h3>
               <ul className="space-y-2 text-xs text-slate-600">
-                <li><Link href="/" className="hover:text-slate-950 transition-colors">Home</Link></li>
-                <li><Link href="/services" className="hover:text-slate-950 transition-colors">Our Services</Link></li>
-                <li><Link href="/blog" className="hover:text-slate-950 transition-colors">Blog</Link></li>
-                <li><Link href="/faq" className="hover:text-slate-950 transition-colors">FAQ</Link></li>
-                <li><Link href="/contact" className="hover:text-slate-950 transition-colors">Contact Us</Link></li>
+                <li><a href="/" className="hover:text-slate-950 transition-colors">Home</a></li>
+                <li><a href="/services" className="hover:text-slate-950 transition-colors">Our Services</a></li>
+                <li><a href="/blog" className="hover:text-slate-950 transition-colors">Blog</a></li>
+                <li><a href="/faq" className="hover:text-slate-950 transition-colors">FAQ</a></li>
+                <li><a href="/contact" className="hover:text-slate-950 transition-colors">Contact Us</a></li>
               </ul>
             </div>
             <div className="space-y-3">
               <h3 className="font-bold text-slate-900 text-sm tracking-tight">Company</h3>
               <ul className="space-y-2 text-xs text-slate-600">
-                <li><Link href="/about-us" className="hover:text-slate-950 transition-colors">About Us</Link></li>
-                <li><Link href="/contact" className="hover:text-slate-950 transition-colors">Contact Us</Link></li>
-                <li><Link href="/warranty-policy" className="hover:text-slate-950 transition-colors">Warranty Policy</Link></li>
-                <li><Link href="/cancellation-policy" className="hover:text-slate-950 transition-colors">Cancellation Policy</Link></li>
+                <li><a href="/about-us" className="hover:text-slate-950 transition-colors">About Us</a></li>
+                <li><a href="/contact" className="hover:text-slate-950 transition-colors">Contact Us</a></li>
+                <li><a href="/warranty-policy" className="hover:text-slate-950 transition-colors">Warranty Policy</a></li>
+                <li><a href="/cancellation-policy" className="hover:text-slate-950 transition-colors">Cancellation Policy</a></li>
               </ul>
             </div>
             <div className="space-y-3">
               <h3 className="font-bold text-slate-900 text-sm tracking-tight">Policies &amp; Legal</h3>
               <ul className="space-y-2 text-xs text-slate-600">
-                <li><Link href="/privacy-policy" className="hover:text-slate-950 transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/terms-of-service" className="hover:text-slate-950 transition-colors">Terms &amp; Conditions</Link></li>
-                <li><Link href="/disclaimer" className="hover:text-slate-950 transition-colors">Disclaimer &amp; Notice</Link></li>
-                <li><Link href="/refund-policy" className="hover:text-slate-950 transition-colors">Refund &amp; Return Policy</Link></li>
-                <li><Link href="/cookie-policy" className="hover:text-slate-950 transition-colors">Cookie Policy</Link></li>
+                <li><a href="/privacy-policy" className="hover:text-slate-950 transition-colors">Privacy Policy</a></li>
+                <li><a href="/terms-of-service" className="hover:text-slate-950 transition-colors">Terms &amp; Conditions</a></li>
+                <li><a href="/disclaimer" className="hover:text-slate-950 transition-colors">Disclaimer &amp; Notice</a></li>
+                <li><a href="/refund-policy" className="hover:text-slate-950 transition-colors">Refund &amp; Return Policy</a></li>
+                <li><a href="/cookie-policy" className="hover:text-slate-950 transition-colors">Cookie Policy</a></li>
               </ul>
             </div>
             <div className="space-y-3">
               <h3 className="font-bold text-slate-900 text-sm tracking-tight">Follow Us</h3>
               <div className="flex items-center gap-3.5 text-slate-800 pt-0.5">
-                <a href="#" aria-label="Facebook" className="hover:text-[#1877F2] transition-colors"><Facebook className="w-[18px] h-[18px] fill-current" /></a>
-                <a href="#" aria-label="Instagram" className="hover:text-[#E4405F] transition-colors"><Instagram className="w-[18px] h-[18px]" /></a>
-                <a href="#" aria-label="YouTube" className="hover:text-[#FF0000] transition-colors"><Youtube className="w-[18px] h-[18px]" /></a>
-                <a href="#" aria-label="LinkedIn" className="hover:text-[#0A66C2] transition-colors"><Linkedin className="w-[18px] h-[18px] fill-current" /></a>
+                <a href="#" aria-label="Facebook" className="hover:text-[#1877F2] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="#" aria-label="Instagram" className="hover:text-[#E4405F] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="#" aria-label="YouTube" className="hover:text-[#FF0000] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+                <a href="#" aria-label="LinkedIn" className="hover:text-[#0A66C2] transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+                </a>
               </div>
             </div>
             <div className="space-y-3 col-span-2 sm:col-span-1">

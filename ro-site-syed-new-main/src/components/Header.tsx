@@ -1,13 +1,8 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
 import { Phone, Menu, X, ChevronDown, Calendar, ShieldCheck, User, Truck, Headset, Droplets } from 'lucide-react';
-import { BUSINESS_DETAILS, BRAND_PAGES_DATA } from '@/src/data/content';
-import { PageRoute } from '@/src/types';
-import { getBrandTheme } from '@/src/utils/brandTheme';
+import { BUSINESS_DETAILS, BRAND_PAGES_DATA } from '@/data/content';
+import type { PageRoute } from '@/types';
+import { getBrandTheme } from '@/utils/brandTheme';
 
 interface HeaderProps {
   currentRoute?: PageRoute;
@@ -29,8 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigate,
   onOpenBookModal,
 }) => {
-  const pathname = usePathname() || '/';
-  const router = useRouter();
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
   const currentRoute = (propCurrentRoute || pathname) as PageRoute;
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,7 +33,6 @@ export const Header: React.FC<HeaderProps> = ({
 
   const brandTheme = getBrandTheme(currentRoute, propLastBrandRoute);
 
-  // Rotate Announcements
   useEffect(() => {
     const interval = setInterval(() => {
       setAnnouncementIndex((prev) => (prev + 1) % ANNOUNCEMENTS.length);
@@ -51,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
     if (onNavigate) {
       onNavigate(route);
     } else {
-      router.push(route);
+      window.location.href = route;
     }
     setMobileMenuOpen(false);
     setPoliciesDropdownOpen(false);
@@ -69,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
       if (onNavigate) {
         onNavigate('/');
       } else {
-        router.push('/');
+        window.location.href = '/';
       }
       setTimeout(() => {
         const el = document.getElementById('lead-form');
@@ -79,7 +72,6 @@ export const Header: React.FC<HeaderProps> = ({
     setMobileMenuOpen(false);
   };
 
-  // On brand pages, the brand has its own dedicated pixel-perfect header matching the reference designs
   if (currentRoute && (currentRoute.includes('-service') || currentRoute.endsWith('-service'))) {
     return null;
   }
@@ -89,7 +81,6 @@ export const Header: React.FC<HeaderProps> = ({
       id="main-header"
       className="relative z-40 bg-white border-b border-slate-200/80"
     >
-      {/* Top Announcement Bar: announcement | announcement | announcement (strictly 1 line on all devices) */}
       <div 
         style={{ backgroundColor: brandTheme.bannerBg }}
         className="text-white py-1.5 sm:py-2 px-2 overflow-hidden select-none transition-colors duration-300"
@@ -115,12 +106,10 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-        {/* Main Navbar */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-22">
             
-            {/* Brand Logo & Name */}
-            <Link
+            <a
               href="/"
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -129,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center gap-2.5 sm:gap-3 text-left focus:outline-none group py-1"
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-xs shrink-0 group-hover:scale-[1.03] transition-transform">
-                <Image
+                <img
                   src="https://res.cloudinary.com/dieq3fjuv/image/upload/v1789813995/IMG-20260918-WA0070_skegej.jpg"
                   alt="RO Service Center Online 24x7"
                   width={44}
@@ -148,11 +137,10 @@ export const Header: React.FC<HeaderProps> = ({
                   </span>
                 </div>
               </div>
-            </Link>
+            </a>
 
-            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              <Link
+              <a
                 href="/"
                 style={currentRoute === '/' ? { color: brandTheme.primary } : undefined}
                 className={`text-sm font-semibold transition-colors ${
@@ -160,9 +148,9 @@ export const Header: React.FC<HeaderProps> = ({
                 }`}
               >
                 Home
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="/blog"
                 style={currentRoute.startsWith('/blog') ? { color: brandTheme.primary } : undefined}
                 className={`text-sm font-semibold transition-colors ${
@@ -170,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }`}
               >
                 Blog
-              </Link>
+              </a>
 
               <a
                 href={`tel:${BUSINESS_DETAILS.phone}`}
@@ -180,7 +168,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>Call 07090170092</span>
               </a>
 
-              {/* Policies Dropdown */}
               <div className="relative">
                 <button
                   onClick={() => setPoliciesDropdownOpen(!policiesDropdownOpen)}
@@ -218,47 +205,46 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
                       Company Policies
                     </div>
-                    <Link
+                    <a
                       href="/privacy-policy"
                       onClick={() => setPoliciesDropdownOpen(false)}
                       className="w-full text-left px-3.5 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-slate-950 block"
                     >
                       Privacy Policy
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="/terms-of-service"
                       onClick={() => setPoliciesDropdownOpen(false)}
                       className="w-full text-left px-3.5 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-slate-950 block"
                     >
                       Terms and Conditions
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="/refund-policy"
                       onClick={() => setPoliciesDropdownOpen(false)}
                       className="w-full text-left px-3.5 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-slate-950 block"
                     >
                       Cancellation &amp; Refund
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="/disclaimer"
                       onClick={() => setPoliciesDropdownOpen(false)}
                       className="w-full text-left px-3.5 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-slate-950 block"
                     >
                       Disclaimer
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="/cookie-policy"
                       onClick={() => setPoliciesDropdownOpen(false)}
                       className="w-full text-left px-3.5 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-slate-950 block"
                     >
                       Cookie Policy
-                    </Link>
+                    </a>
                   </div>
                 )}
               </div>
             </nav>
 
-            {/* Right Action Call Button & Profile Icon */}
             <div className="hidden sm:flex items-center gap-3">
               <button
                 onClick={handleScrollToForm}
@@ -281,7 +267,6 @@ export const Header: React.FC<HeaderProps> = ({
               </a>
             </div>
 
-            {/* Mobile Menu & Profile Button */}
             <div className="flex lg:hidden items-center gap-2">
               <button
                 onClick={handleScrollToForm}
@@ -313,65 +298,64 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 shadow-xl space-y-4 animate-fadeIn">
             <div className="flex flex-col space-y-2">
-              <Link
+              <a
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3 py-2 text-sm font-bold text-slate-900 rounded-lg hover:bg-slate-50"
               >
                 Home
-              </Link>
+              </a>
 
-              <Link
+              <a
                 href="/blog"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-3 py-2 text-sm font-bold text-slate-900 rounded-lg hover:bg-slate-50"
               >
                 Blog &amp; Guides
-              </Link>
+              </a>
 
               <div className="px-3 pt-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
                 Legal &amp; Policies
               </div>
               <div className="flex flex-col space-y-1 px-3">
-                <Link
+                <a
                   href="/privacy-policy"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1 text-xs text-slate-600 hover:text-slate-950"
                 >
                   Privacy Policy
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/terms-of-service"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1 text-xs text-slate-600 hover:text-slate-950"
                 >
                   Terms and Conditions
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/refund-policy"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1 text-xs text-slate-600 hover:text-slate-950"
                 >
                   Cancellation &amp; Refund Policy
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/disclaimer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1 text-xs text-slate-600 hover:text-slate-950"
                 >
                   Disclaimer
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/cookie-policy"
                   onClick={() => setMobileMenuOpen(false)}
                   className="py-1 text-xs text-slate-600 hover:text-slate-950"
                 >
                   Cookie Policy
-                </Link>
+                </a>
               </div>
 
               <a

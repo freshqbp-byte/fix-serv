@@ -1,8 +1,8 @@
-'use client';
+
 
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { FAQItem } from '@/src/types';
+import type { FAQItem } from '@/types';
 
 interface FAQAccordionProps {
   faqs: FAQItem[];
@@ -84,3 +84,4 @@ export const FAQAccordion: React.FC<FAQAccordionProps> = ({
     </div>
   );
 };
+

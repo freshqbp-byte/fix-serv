@@ -1,4 +1,4 @@
-import { PageRoute } from '../types';
+import { PageRoute } from '@/types';
 
 export const SUBDOMAIN_ROUTE_MAP: Record<string, PageRoute> = {
   kent: '/kent-service',
@@ -35,3 +35,4 @@ export function getRouteFromSubdomain(hostname?: string): PageRoute | null {
 
   return SUBDOMAIN_ROUTE_MAP[subdomain] || null;
 }
+

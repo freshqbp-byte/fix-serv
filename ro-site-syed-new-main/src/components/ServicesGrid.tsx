@@ -101,3 +101,4 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ onSelectService }) =
     </div>
   );
 };
+

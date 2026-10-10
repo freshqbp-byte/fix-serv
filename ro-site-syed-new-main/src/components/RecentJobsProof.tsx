@@ -1,9 +1,9 @@
-'use client';
+
 
 import React from 'react';
-import Image from 'next/image';
+
 import { CheckCircle2, MapPin, Wrench, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
-import { BUSINESS_DETAILS } from '@/src/data/content';
+import { BUSINESS_DETAILS } from '@/data/content';
 
 interface RecentJob {
   locality: string;
@@ -159,3 +159,4 @@ export const RecentJobsProof: React.FC<RecentJobsProofProps> = ({ onBookClick })
     </section>
   );
 };
+

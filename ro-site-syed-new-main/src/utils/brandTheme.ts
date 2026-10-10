@@ -1,121 +1,106 @@
-import { PageRoute } from '../types';
+import type { PageRoute } from '@/types';
 
-export interface BrandThemeConfig {
-  id: string;
-  name: string;
+export interface BrandTheme {
   primary: string;
-  hover: string;
+  darkBg: string;
+  accent: string;
   lightBg: string;
-  borderColor: string;
+  border: string;
+  bannerBg: string;
   gradientFrom: string;
   gradientTo: string;
-  badgeBg: string;
-  bannerBg: string;
-  buttonBg: string;
-  phoneTextColor: string;
 }
 
-export const DEFAULT_THEME: BrandThemeConfig = {
-  id: 'default',
-  name: 'RO Service 24x7',
-  primary: '#006ce4',
-  hover: '#0056b8',
-  lightBg: '#EFF6FF',
-  borderColor: '#BFDBFE',
-  gradientFrom: '#38bdf8',
-  gradientTo: '#06b6d4',
-  badgeBg: '#1d63d8',
-  bannerBg: '#1d63d8',
-  buttonBg: '#1d63d8',
-  phoneTextColor: '#1d63d8',
+const DEFAULT_THEME: BrandTheme = {
+  primary: '#0b5cbe',
+  darkBg: '#094796',
+  accent: '#1874e0',
+  lightBg: '#f0f5fb',
+  border: '#e1e9f2',
+  bannerBg: '#002b66',
+  gradientFrom: '#0b5cbe',
+  gradientTo: '#1874e0',
 };
 
-export const BRAND_THEME_MAP: Record<string, BrandThemeConfig> = {
+const BRAND_THEMES: Record<string, BrandTheme> = {
   '/kent-service': {
-    id: 'kent',
-    name: 'Kent',
     primary: '#1B3F8C',
-    hover: '#153270',
-    lightBg: '#EFF6FF',
-    borderColor: '#BFDBFE',
-    gradientFrom: '#38bdf8',
-    gradientTo: '#06b6d4',
-    badgeBg: '#1B3F8C',
+    darkBg: '#0f2c69',
+    accent: '#38bdf8',
+    lightBg: '#f0f7ff',
+    border: '#bfdbfe',
     bannerBg: '#1B3F8C',
-    buttonBg: '#1B3F8C',
-    phoneTextColor: '#1B3F8C',
+    gradientFrom: '#1B3F8C',
+    gradientTo: '#38bdf8',
   },
   '/aquaguard-service': {
-    id: 'aquaguard',
-    name: 'Aquaguard',
     primary: '#0072BC',
-    hover: '#005C96',
-    lightBg: '#F0F9FF',
-    borderColor: '#BAE6FD',
-    gradientFrom: '#2dd4bf',
-    gradientTo: '#38bdf8',
-    badgeBg: '#0072BC',
+    darkBg: '#073356',
+    accent: '#06b6d4',
+    lightBg: '#f0f9ff',
+    border: '#bae6fd',
     bannerBg: '#0072BC',
-    buttonBg: '#0072BC',
-    phoneTextColor: '#0072BC',
+    gradientFrom: '#0072BC',
+    gradientTo: '#06b6d4',
   },
   '/pureit-service': {
-    id: 'pureit',
-    name: 'Pureit',
-    primary: '#2B2A6B',
-    hover: '#202052',
-    lightBg: '#F5F3FF',
-    borderColor: '#DDD6FE',
-    gradientFrom: '#818cf8',
-    gradientTo: '#38bdf8',
-    badgeBg: '#2B2A6B',
+    primary: '#1e40af',
+    darkBg: '#141f47',
+    accent: '#38bdf8',
+    lightBg: '#f5f3ff',
+    border: '#ddd6fe',
     bannerBg: '#2B2A6B',
-    buttonBg: '#2B2A6B',
-    phoneTextColor: '#2B2A6B',
+    gradientFrom: '#1e40af',
+    gradientTo: '#38bdf8',
   },
   '/aosmith-service': {
-    id: 'aosmith',
-    name: 'AO Smith',
-    primary: '#00843D',
-    hover: '#006830',
-    lightBg: '#F0FDF4',
-    borderColor: '#BBF7D0',
-    gradientFrom: '#34d399',
-    gradientTo: '#10b981',
-    badgeBg: '#00843D',
+    primary: '#047857',
+    darkBg: '#053225',
+    accent: '#10b981',
+    lightBg: '#f0fdf4',
+    border: '#bbf7d0',
     bannerBg: '#00843D',
-    buttonBg: '#00843D',
-    phoneTextColor: '#00843D',
+    gradientFrom: '#047857',
+    gradientTo: '#10b981',
   },
   '/livpure-service': {
-    id: 'livpure',
-    name: 'Livpure',
-    primary: '#4c1d95',
-    hover: '#3b0764',
-    lightBg: '#FAF5FF',
-    borderColor: '#E9D5FF',
-    gradientFrom: '#a855f7',
-    gradientTo: '#7c3aed',
-    badgeBg: '#4c1d95',
-    bannerBg: '#4c1d95',
-    buttonBg: '#4c1d95',
-    phoneTextColor: '#4c1d95',
+    primary: '#581c87',
+    darkBg: '#211042',
+    accent: '#a855f7',
+    lightBg: '#faf5ff',
+    border: '#e9d5ff',
+    bannerBg: '#581c87',
+    gradientFrom: '#581c87',
+    gradientTo: '#a855f7',
   },
 };
 
-export function getBrandTheme(currentRoute: string, lastBrandRoute?: string | null): BrandThemeConfig {
-  if (BRAND_THEME_MAP[currentRoute]) {
-    return BRAND_THEME_MAP[currentRoute];
-  }
-  const normalizedWithService = `${currentRoute}-service`;
-  if (BRAND_THEME_MAP[normalizedWithService]) {
-    return BRAND_THEME_MAP[normalizedWithService];
+export function getBrandTheme(
+  currentRoute?: PageRoute | string,
+  lastBrandRoute?: PageRoute | null
+): BrandTheme {
+  if (currentRoute && BRAND_THEMES[currentRoute]) {
+    return BRAND_THEMES[currentRoute];
   }
 
-  // If user is on a policy page or other secondary page and arrived from a brand page
-  if (currentRoute !== '/' && lastBrandRoute && BRAND_THEME_MAP[lastBrandRoute]) {
-    return BRAND_THEME_MAP[lastBrandRoute];
+  if (lastBrandRoute && BRAND_THEMES[lastBrandRoute]) {
+    return BRAND_THEMES[lastBrandRoute];
   }
+
+  return DEFAULT_THEME;
+}
+
+export function getThemeByBrandId(brandId?: string): BrandTheme {
+  if (!brandId) return DEFAULT_THEME;
+
+  const cleanId = brandId.toLowerCase().replace(/-service$/, '');
+
+  if (cleanId.includes('kent')) return BRAND_THEMES['/kent-service'];
+  if (cleanId.includes('aquaguard')) return BRAND_THEMES['/aquaguard-service'];
+  if (cleanId.includes('pureit')) return BRAND_THEMES['/pureit-service'];
+  if (cleanId.includes('smith') || cleanId.includes('ao-smith'))
+    return BRAND_THEMES['/aosmith-service'];
+  if (cleanId.includes('livpure')) return BRAND_THEMES['/livpure-service'];
 
   return DEFAULT_THEME;
 }
